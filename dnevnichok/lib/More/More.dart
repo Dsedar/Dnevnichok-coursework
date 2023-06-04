@@ -18,7 +18,7 @@ class _More extends State {
   final Function(ThemeData) changeTheme;
   final ThemeData themeData;
   _More({required this.changeTheme, required this.themeData});
-  late bool _isDarkModeEnabled = (themeData == ThemeData.dark()? false: true);
+  late bool _isDarkModeEnabled = (themeData == ThemeData.dark()? true: false);
   //bool _isDarkModeEnabled = true;
 
   @override
@@ -27,7 +27,7 @@ class _More extends State {
       theme: _isDarkModeEnabled? ThemeData.dark(): ThemeData.light(),
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Больше'),
+          title: Text('Настройки'),
         ),
         body: SettingsList(
           sections: [

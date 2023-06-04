@@ -74,6 +74,7 @@ class NotesEntry extends StatelessWidget {
                             ListTile(
                                 leading : Icon(Icons.title),
                                 title : TextFormField(
+                                    key: Key('titleField'),
                                     decoration : InputDecoration(hintText : "Title"),
                                     controller : _titleEditingController,
                                     validator : (inValue) {
@@ -86,6 +87,7 @@ class NotesEntry extends StatelessWidget {
                             ListTile(
                                 leading : Icon(Icons.content_paste),
                                 title : TextFormField(
+                                    key: Key('contentField'),
                                     keyboardType : TextInputType.multiline, maxLines : 5,
                                     decoration : InputDecoration(hintText : "Content"),
                                     controller : _contentEditingController,
@@ -150,6 +152,7 @@ class NotesEntry extends StatelessWidget {
                                 title : Text("Date"),
                                 subtitle : Text(notesModel.noteDate == null ? "" : notesModel.noteDate!),
                                 trailing : IconButton(
+                                    key: Key('dateEditButton'),
                                     icon : Icon(Icons.edit),
                                     color : Colors.blue,
                                     onPressed : () => _selectDate(inContext)/*async {
@@ -169,6 +172,7 @@ class NotesEntry extends StatelessWidget {
                                 title : Text("Time"),
                                 subtitle : Text(notesModel.noteTime == null ? "" : notesModel.noteTime!),
                                 trailing : IconButton(
+                                    key: Key('timeEditButton'),
                                     icon : Icon(Icons.edit),
                                     color : Colors.blue,
                                     onPressed : () => _selectTime(inContext)
