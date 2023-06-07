@@ -155,7 +155,6 @@ class _NotesList extends State {
                   ),
                   body : _foundNotes.isNotEmpty?
                       ListView.builder(
-                      //itemCount : notesModel.entityList.length,
                         itemCount: _foundNotes.length,
                         itemBuilder : (BuildContext inBuildContext, int inIndex) {
                           Map<String, dynamic> note = _foundNotes[inIndex];
@@ -187,7 +186,7 @@ class _NotesList extends State {
                                               Icon(FontAwesomeIcons.faceAngry, color: Colors.red, size: 40),
                                             title : Text("${note['title']}"),
                                             subtitle : Text("${note['content']}"),
-                                            trailing: Text("${note['noteDate']}"),
+                                            trailing: Text(note['noteDate']),
                                             // Edit existing note.
                                             onTap : () async {
                                               notesModel.entityBeingEdited = await NotesDBWorker.db.get(note['id']);

@@ -79,7 +79,7 @@ class NotesEntry extends StatelessWidget {
                                     controller : _titleEditingController,
                                     validator : (inValue) {
                                       if (inValue?.length == 0) { return "Please enter a title"; }
-                                      return null;
+                                      //return null;
                                     }
                                 )
                             ),
@@ -93,13 +93,12 @@ class NotesEntry extends StatelessWidget {
                                     controller : _contentEditingController,
                                     validator : (inValue) {
                                       if (inValue?.length == 0) { return "Please enter content"; }
-                                      return null;
+                                      //return null;
                                     }
                                 )
                             ),
                             // Note mood.
                             ListTile(
-                                //leading : Icon(Icons.color_lens),
                                 title : Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -155,15 +154,7 @@ class NotesEntry extends StatelessWidget {
                                     key: Key('dateEditButton'),
                                     icon : Icon(Icons.edit),
                                     color : Colors.blue,
-                                    onPressed : () => _selectDate(inContext)/*async {
-                                      // Request a date from the user.  If one is returned, store it.
-                                      String chosenDate = await utils.selectDate(
-                                          inContext, notesModel, notesModel.entityBeingEdited.noteDate
-                                      );
-                                      if (chosenDate != null) {
-                                        notesModel.entityBeingEdited.noteDate = chosenDate;
-                                      }
-                                    }*/
+                                    onPressed : () => _selectDate(inContext)
                                 )
                             ),
                             // Appointment Time.
@@ -194,6 +185,32 @@ class NotesEntry extends StatelessWidget {
   void _save(BuildContext inContext, NotesModel inModel) async {
 
     print("## NotesEntry._save()");
+
+    // Check mood is added
+    if (inModel.entityBeingEdited.mood == null) {
+      ScaffoldMessenger.of(inContext).showSnackBar(
+        SnackBar(content: Text('Пожалуйста введите настроение')),
+      );
+      return;
+    }
+
+    // Check date and time is added
+    if (inModel.entityBeingEdited.noteDate == null ||
+        inModel.entityBeingEdited.noteTime == null) {
+      ScaffoldMessenger.of(inContext).showSnackBar(
+        SnackBar(content: Text('Пожалуйста введите дату и время')),
+      );
+      return;
+    }
+
+    // Check for note in added date
+    if (inModel.entityBeingEdited.noteDate != null &&
+        notesModel.noteDate == inModel.entityBeingEdited.noteDate) {
+      ScaffoldMessenger.of(inContext).showSnackBar(
+        SnackBar(content: Text('Запись на эту дату уже существует')),
+      );
+      return;
+    }
 
     // Abort if form isn't valid.
     if (!_formKey.currentState!.validate()) { return; }
